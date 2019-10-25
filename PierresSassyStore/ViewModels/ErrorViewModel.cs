@@ -1,6 +1,6 @@
 using System;
 
-namespace PierresSassyStore.Models
+namespace PierresSassyStore.ViewModels
 {
     public class ErrorViewModel
     {
