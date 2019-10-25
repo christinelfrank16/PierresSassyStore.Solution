@@ -1,0 +1,8 @@
+.library {
+    list-style: none;
+}
+
+.library .card {
+    margin: 10px 0;
+    border-radius: 8px;
+}

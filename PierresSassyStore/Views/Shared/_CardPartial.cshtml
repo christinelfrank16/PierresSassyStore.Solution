@@ -1,6 +1,6 @@
-
 @{
     string modelType = Model.GetType().ToString();
+    int id;
 }
 <div class="card">
       <div class="row no-gutter">
@@ -18,13 +18,25 @@
             <div class="card-body">
                 <h5 class="card-title">@Model.Name</h5>
                 <p class="card-text">@Model.Description</p>
-                @if(modelType == "Treat")
+                @if(modelType == "PierresSassyStore.Models.Treat")
                 {
-                    @Html.ActionLink("Link to Details", "Details", new { id = @Model.TreatId })
+                    id = @Model.TreatId;
                 }
-                else if (modelType == "Flavor")
+                else if (modelType == "PierresSassyStore.Models.Flavor")
                 {
-                    @Html.ActionLink("Link to Details", "Details", new { id = @Model.FlavorId })
+                    id = @Model.FlavorId;
+                }
+                else
+                {
+                    id = 0;
+                }
+                <p>@Html.ActionLink("Link to Details", "Details", new { id = id })</p>
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"})  
+                    @await Html.PartialAsync("_AreYouSure", new {Name = "Remove", Action="Delete", Controller = "Treats", Id = id})
+                        
+                        @*@Html.ActionLink("Remove", "Delete", new { id = id })*@</p>
                 }
             </div>
         </div>

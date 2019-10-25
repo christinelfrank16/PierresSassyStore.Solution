@@ -1,0 +1,27 @@
+@model PierresSassyStore.Models.Treat
+
+<h2>Update @Model.Name</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.TreatId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Image_url)
+        @Html.TextBoxFor(m => m.Image_url)
+    </div>
+    <div class="form-group">
+        @Html.Display("Select Primary Flavor")
+        @Html.DropDownList("FlavorId")
+    </div>
+
+    <input type="submit" value="Update Treat">
+}
+    
