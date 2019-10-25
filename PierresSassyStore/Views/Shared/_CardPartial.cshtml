@@ -10,11 +10,11 @@
             <div class="col-auto">
                 @if(string.IsNullOrEmpty(Model.Image_url))
                 {
-                    <img src="~/img/genericTreats.jpg" alt="Display of Generic Treats">
+                    <img src="~/img/genericTreats.jpg" class="card-img" alt="Display of Generic Treats">
                 }
                 else
                 {
-                    <img src="{@Model.Image_url}" alt="Display Image, @Model.Name">
+                    <img src="@Model.Image_url" class="card-img" alt="Display Image, @Model.Name">
                 }
             </div>
         <div class="col">
@@ -36,11 +36,9 @@
                 <p>@Html.ActionLink("Link to Details", "Details", new { id = id })</p>
                 @if(User.Identity.IsAuthenticated)
                 {
-                    <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"}) 
+                    <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"})
                     @{modalObjectList.Add(new ModalViewModel(){ Name = "Remove", LinkAction="Delete", LinkController = "Treats", Id = id });}     
-                    @await Html.PartialAsync("_AreYouSurePartial", modalObjectList.FirstOrDefault(o => o.Id == id))
-                        
-                        @*@Html.ActionLink("Remove", "Delete", new { id = id })*@</p>
+                    @await Html.PartialAsync("_AreYouSurePartial", modalObjectList.FirstOrDefault(o => o.Id == id))</p>
                 }
             </div>
         </div>

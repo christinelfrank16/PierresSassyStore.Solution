@@ -56,7 +56,7 @@ namespace PierresSassyStore.Controllers
         public ActionResult Edit(int id)
         {
             Treat model = _db.Treats.FirstOrDefault(t => t.TreatId == id);
-            ViewBag.Flavors = new SelectList(_db.Flavors.ToList(), "FlavorId", "Name");
+            ViewBag.FlavorIds = new SelectList(_db.Flavors.ToList(), "FlavorId", "Name");
             return View(model);
         }
 
@@ -83,7 +83,6 @@ namespace PierresSassyStore.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Console.WriteLine(id);
             Treat thisTreat = _db.Treats.FirstOrDefault(t => t.TreatId == id);
             _db.Treats.Remove(thisTreat);
             _db.SaveChanges();

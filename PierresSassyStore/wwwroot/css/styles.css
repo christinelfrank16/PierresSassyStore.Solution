@@ -6,3 +6,15 @@
     margin: 10px 0;
     border-radius: 8px;
 }
+
+.library .col-auto {
+    width: 300px;
+    max-height: 210px; 
+    margin: auto;
+    overflow: hidden;
+}
+.library .card-img {
+    object-fit: contain;
+    max-width:280px;
+    vertical-align: middle;
+}
