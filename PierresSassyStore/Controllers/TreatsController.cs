@@ -75,8 +75,9 @@ namespace PierresSassyStore.Controllers
 
         public ActionResult Details(int id)
         {
-            Treat model = _db.Treats.Include(t => t.Flavors).ThenInclude(ft => ft.Flavor).FirstOrDefault(t => t.TreatId == id);
-            return View(model);
+            Treat thisTreat = _db.Treats.Include(t => t.Flavors).ThenInclude(ft => ft.Flavor).FirstOrDefault(t => t.TreatId == id);
+            List<Flavor> flavors = _db.Flavors.ToList();
+            return View(new TreatsDetailsViewModel(){Treat = thisTreat, AllFlavors = flavors});
         }
 
         [Authorize]

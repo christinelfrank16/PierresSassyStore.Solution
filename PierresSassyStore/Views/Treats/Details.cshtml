@@ -1,0 +1,53 @@
+@model PierresSassyStore.ViewModels.TreatsDetailsViewModel
+
+<h1>@Model.Treat.Name</h1>
+@if(string.IsNullOrEmpty(Model.Treat.Image_url))
+{
+    <img src="~/img/genericTreats.jpg" class="detail-img" alt="Display of Generic Treats">
+}
+else
+{
+    <img src="@Model.Treat.Image_url" class="detail-img" alt="Display Image, @Model.Treat.Name">
+}
+
+@if(Model.Treat.Flavors.Count == 0)
+{
+    <h4>This treat has no flavors!</h4>
+}
+else
+{
+    <h4>Existing Treat Flavors</h4>
+    
+    <ul>
+    @foreach(FlavorTreat ft in Model.Treat.Flavors)
+    {
+        <li>@ft.Flavor.Name | @ft.Flavor.Description | @Html.ActionLink("Learn More", "Details", "Flavors", new { id = @ft.Flavor.FlavorId})</li>
+    }
+    </ul>
+}
+@if(User.Identity.IsAuthenticated)
+{
+    <button type="click" onclick="DisplayFlavors()">Add more flavors</button>
+    <div id="flavorOptions">
+        @using(Html.BeginForm())
+        {
+            @foreach(Flavor flavor in Model.AllFlavors)
+            {
+                @if(Model.Treat.Flavors.FirstOrDefault(f => f.Flavor.FlavorId == flavor.FlavorId) != null)
+                {
+                    <input type="checkbox" name="Flavors" value="@flavor.FlavorId" checked>
+                }
+                else
+                {
+                    <input type="checkbox" name="Flavors" value="@flavor.FlavorId">
+                }
+            }
+        }
+    </div>
+}
+
+<script>
+    function DisplayFlavors(){
+        $(#flavorOptions).toggle();
+    }
+</script>

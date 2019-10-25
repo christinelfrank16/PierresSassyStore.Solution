@@ -18,3 +18,13 @@
     max-width:280px;
     vertical-align: middle;
 }
+
+.detail-img {
+    float: right;
+    max-width: 30%;
+    width: auto;
+    height: auto;
+}
+#flavorOptions {
+    display: none;
+}
