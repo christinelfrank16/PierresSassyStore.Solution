@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using PierresSassyStore.Models;
 using System.Threading.Tasks;
 using System;
@@ -21,9 +23,15 @@ namespace PierresSassyStore.Controllers
             _db = db;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var currentUser = await _userManager.FindByIdAsync(userId);
+                return View(currentUser);
+            }
+            return View("Index", "Home");
         }
 
         public ActionResult Register()

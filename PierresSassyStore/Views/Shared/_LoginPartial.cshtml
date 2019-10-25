@@ -4,7 +4,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Index" title="Manage">Hello @User.Identity.Name!</a>
+        @Html.ActionLink($"Hello {User.Identity.Name}!", "Index", "Accounts", null,  new {@class = "nav-link text-dark"})
     </li>
     <li class="nav-item">
         @Html.ActionLink("Logout", "LogOff", "Accounts", null,  new {@class = "nav-link text-dark"})
