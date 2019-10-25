@@ -1,0 +1,32 @@
+
+@{
+    string modelType = Model.GetType().ToString();
+}
+<div class="card">
+      <div class="row no-gutter">
+            <div class="col-auto">
+                @if(string.IsNullOrEmpty(Model.Image_url))
+                {
+                    <img src="~/img/genericTreats.jpg" alt="Display of Generic Treats">
+                }
+                else
+                {
+                    <img src="{@Model.Image_url}" alt="Display Image, @Model.Name">
+                }
+            </div>
+        <div class="col">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-text">@Model.Description</p>
+                @if(modelType == "Treat")
+                {
+                    @Html.ActionLink("Link to Details", "Details", new { id = @Model.TreatId })
+                }
+                else if (modelType == "Flavor")
+                {
+                    @Html.ActionLink("Link to Details", "Details", new { id = @Model.FlavorId })
+                }
+            </div>
+        </div>
+    </div>
+</div>

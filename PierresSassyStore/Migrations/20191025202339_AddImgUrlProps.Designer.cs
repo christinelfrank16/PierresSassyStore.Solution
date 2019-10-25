@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PierresSassyStore.Models;
 
 namespace PierresSassyStore.Migrations
 {
     [DbContext(typeof(PierresSassyStoreContext))]
-    partial class PierresSassyStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20191025202339_AddImgUrlProps")]
+    partial class AddImgUrlProps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,8 +187,7 @@ namespace PierresSassyStore.Migrations
 
                     b.Property<string>("AvailableSeason");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
                     b.Property<string>("Image_url");
 
@@ -194,8 +195,7 @@ namespace PierresSassyStore.Migrations
 
                     b.Property<bool>("IsSeasonal");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("FlavorId");
 
@@ -225,13 +225,11 @@ namespace PierresSassyStore.Migrations
                     b.Property<int>("TreatId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
                     b.Property<string>("Image_url");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("TreatId");
 

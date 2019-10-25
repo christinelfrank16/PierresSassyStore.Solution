@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PierresSassyStore.Models;
 
 namespace PierresSassyStore.Migrations
 {
     [DbContext(typeof(PierresSassyStoreContext))]
-    partial class PierresSassyStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20191025202949_AddRequiredKeywords")]
+    partial class AddRequiredKeywords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

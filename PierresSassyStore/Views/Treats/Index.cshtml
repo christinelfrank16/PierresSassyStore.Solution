@@ -1,0 +1,22 @@
+@using System.Collections.Generic
+@model List<PierresSassyStore.Models.Treat>
+
+<h1>Treat Library</h1>
+<h4>Add a new treat recipe @Html.ActionLink("here","Create")</h4>
+
+@if(Model.Count == 0)
+{
+    <h3>There are no treat recipes in the library</h3>
+}
+else
+{
+    <ul>
+        @foreach(Treat treat in Model)
+        {
+            <li>
+                @await Html.PartialAsync("_CardPartial", treat)
+            </li>
+        }
+    </ul>
+    
+}
