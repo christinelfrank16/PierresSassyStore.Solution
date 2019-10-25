@@ -1,11 +1,10 @@
-@using PierresSassyStore.ViewModels
-@model ModalViewModel
+@model PierresSassyStore.ViewModels.ModalViewModel
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AreYouSureModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AreYouSureModal-@Model.Id">
   @Model.Name
 </button>
 
-<div class="modal" id="AreYouSureModal" tabindex="-1" role="dialog">
+<div class="modal" id="AreYouSureModal-@Model.Id" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,7 +18,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" onclick="@Url.Action("@Model.Action","@Model.Controller", new { id = @Model.Id})" class="btn btn-primary">Continue</button>
+        @using(Html.BeginForm(Model.LinkAction, Model.LinkController, new { id = @Model.Id}))
+        {
+          <input type="submit" class="btn btn-primary" value="@Model.Name">
+        }
       </div>
     </div>
   </div>

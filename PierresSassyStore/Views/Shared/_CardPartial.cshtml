@@ -1,6 +1,9 @@
+@using PierresSassyStore.ViewModels
+@using System.Collections.Generic;
 @{
     string modelType = Model.GetType().ToString();
     int id;
+    List<ModalViewModel> modalObjectList = new List<ModalViewModel>();
 }
 <div class="card">
       <div class="row no-gutter">
@@ -33,8 +36,9 @@
                 <p>@Html.ActionLink("Link to Details", "Details", new { id = id })</p>
                 @if(User.Identity.IsAuthenticated)
                 {
-                    <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"})  
-                    @await Html.PartialAsync("_AreYouSure", new {Name = "Remove", Action="Delete", Controller = "Treats", Id = id})
+                    <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"}) 
+                    @{modalObjectList.Add(new ModalViewModel(){ Name = "Remove", LinkAction="Delete", LinkController = "Treats", Id = id });}     
+                    @await Html.PartialAsync("_AreYouSurePartial", modalObjectList.FirstOrDefault(o => o.Id == id))
                         
                         @*@Html.ActionLink("Remove", "Delete", new { id = id })*@</p>
                 }

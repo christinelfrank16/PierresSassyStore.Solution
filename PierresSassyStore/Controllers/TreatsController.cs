@@ -35,7 +35,7 @@ namespace PierresSassyStore.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Flavors = new SelectList(_db.Flavors.ToList(), "FlavorId", "Name");
+            ViewBag.FlavorIds = new SelectList(_db.Flavors.ToList(), "FlavorId", "Name");
             return View();
         }
 
@@ -77,6 +77,17 @@ namespace PierresSassyStore.Controllers
         {
             Treat model = _db.Treats.Include(t => t.Flavors).ThenInclude(ft => ft.Flavor).FirstOrDefault(t => t.TreatId == id);
             return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            Console.WriteLine(id);
+            Treat thisTreat = _db.Treats.FirstOrDefault(t => t.TreatId == id);
+            _db.Treats.Remove(thisTreat);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
