@@ -65,24 +65,39 @@ namespace PierresSassyStore.Controllers
 
         public ActionResult Login()
         {
+            ViewBag.ErrorMsg = "";
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent: true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
             else
             {
+                string errorMsg ="";
+                if(result.IsLockedOut)
+                {
+                    errorMsg = $"{model.UserName} is locked out. Please try again later.";
+                }
+                else if(result.IsNotAllowed)
+                {
+                    errorMsg = $"{model.UserName} is not allowed to sign in. Please try registering or trying again later.";
+                }
+                else
+                {
+                    errorMsg = "An unknown error occurred.";
+                }
+                
+                ViewBag.ErrorMsg = errorMsg;
                 return View();
             }
         }
 
-        [HttpPost]
         public async Task<ActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();

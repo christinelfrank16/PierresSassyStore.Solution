@@ -7,8 +7,12 @@
 
 @using (Html.BeginForm())
 {
-    @Html.TextBoxFor(m => m.Email, new{@placeholder = "Email"})
+    @Html.TextBoxFor(m => m.UserName, new{@placeholder = "User Name"})
     @Html.PasswordFor(m => m.Password, new{@placeholder = "Password"})
 
+    @if(ViewBag.ErrorMsg != "")
+    {
+        <p>@ViewBag.ErrorMsg</p>
+    }
     <input type="submit" value="Log in">
 }
