@@ -34,8 +34,14 @@
     border: 1px solid grey;
     text-align: center;
     padding: 10px;
+    background-color: paleturquoise;
 }
 
 #groups {
     margin-left: 25%;
+}
+
+#logohat {
+    width: 50px;
+    margin-right: 10px;
 }
