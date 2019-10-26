@@ -25,7 +25,6 @@
     width: auto;
     height: auto;
 }
-#flavorOptions {
-    display: none;
-    margin-top: 10px;
+#flavorOptions, #treatOptions {
+    margin-top: 20px;
 }

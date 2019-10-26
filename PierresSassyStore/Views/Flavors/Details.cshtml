@@ -5,10 +5,14 @@
         function DisplayTreats(){
             $("#treatOptions").toggle();
         }
+        $(document).ready(function(){
+            $("#treatOptions").hide();
+        });
     </script>
 }
 
 <h1>@Model.Flavor.Name</h1>
+
 @if(string.IsNullOrEmpty(Model.Flavor.Image_url))
 {
     <img src="~/img/genericFlavors.jpg" class="detail-img" alt="Display of Generic Flavors">
@@ -17,6 +21,17 @@ else
 {
     <img src="@Model.Flavor.Image_url" class="detail-img" alt="Display Image, @Model.Flavor.Name">
 }
+<h3>About this Flavor:</h3>
+<ul>
+    @if(Model.Flavor.IsSeasonal || Model.Flavor.AvailableSeason != "All")
+    {
+        <li>@Model.Flavor.Name is seasonal - most often available around @Model.Flavor.AvailableSeason</li>
+    }
+    else{
+        <li>@Model.Flavor.Name is available year-round</li>
+    }
+    <li>It is currently @(Model.Flavor.IsAvailable ? "" : "not ") available in stores</li>
+</ul>
 
 @if(Model.Flavor.Treats.Count == 0)
 {
