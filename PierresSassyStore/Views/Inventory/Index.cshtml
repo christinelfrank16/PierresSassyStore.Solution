@@ -37,14 +37,14 @@
             <ul id="treats">
                 @foreach(Treat treat in Model.AllTreats)
                 {
-                    <li>@Html.ActionLink(@treat.Name, "Details", "Treat", new {id = @treat.TreatId})</li>
+                    <li>@Html.ActionLink(@treat.Name, "Details", "Treats", new {id = @treat.TreatId})</li>
                 }
             </ul>
             <h5>@Html.ActionLink("Flavors", "Index", "Flavors")</h5>
             <ul id="flavors">
                 @foreach(Flavor flavor in Model.AllFlavors)
                 {
-                    <li>@Html.ActionLink(@flavor.Name, "Details", "Flavor", new {id = @flavor.FlavorId})</li>
+                    <li>@Html.ActionLink(@flavor.Name, "Details", "Flavors", new {id = @flavor.FlavorId})</li>
                 }
             </ul>
         </div>
