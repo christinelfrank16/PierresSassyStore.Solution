@@ -1,4 +1,12 @@
 @model PierresSassyStore.ViewModels.TreatsDetailsViewModel
+@section Scripts
+{
+    <script type="text/javascript">
+        function DisplayFlavors(){
+            $("#flavorOptions").toggle();
+        }
+    </script>
+}
 
 <h1>@Model.Treat.Name</h1>
 @if(string.IsNullOrEmpty(Model.Treat.Image_url))
@@ -25,29 +33,35 @@ else
     }
     </ul>
 }
+<p>@Html.ActionLink("Go back to Treats List", "Index", "Treats")</p>
 @if(User.Identity.IsAuthenticated)
 {
-    <button type="click" onclick="DisplayFlavors()">Add more flavors</button>
+    <button type="click" onclick="DisplayFlavors()">Add more flavors to this treat!</button>
     <div id="flavorOptions">
-        @using(Html.BeginForm())
+        <h6>Flavor Options</h6>
+        @if(Model.AllFlavors.Count == 0)
         {
-            @foreach(Flavor flavor in Model.AllFlavors)
+            <p>There are no flavors to choose from at this time</p>
+            @Html.ActionLink("Add one here!", "Create", "Flavors")
+        }
+        else
+        {
+            @using(Html.BeginForm())
             {
-                @if(Model.Treat.Flavors.FirstOrDefault(f => f.Flavor.FlavorId == flavor.FlavorId) != null)
+                @foreach(Flavor flavor in Model.AllFlavors)
                 {
-                    <input type="checkbox" name="Flavors" value="@flavor.FlavorId" checked>
+                    @if(Model.Treat.Flavors.FirstOrDefault(f => f.Flavor.FlavorId == flavor.FlavorId) != null)
+                    {
+                        <input type="checkbox" name="Flavors" value="@flavor.FlavorId" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Flavors" value="@flavor.FlavorId">
+                    }
                 }
-                else
-                {
-                    <input type="checkbox" name="Flavors" value="@flavor.FlavorId">
-                }
+                <input type="submit" value="Update Flavors">
             }
         }
     </div>
 }
 
-<script>
-    function DisplayFlavors(){
-        $(#flavorOptions).toggle();
-    }
-</script>
