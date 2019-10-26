@@ -1,4 +1,5 @@
 @model PierresSassyStore.ViewModels.FlavorsDetailsViewModel
+@using PierresSassyStore.ViewModels
 @section Scripts
 {
     <script type="text/javascript">
@@ -51,36 +52,41 @@ else
 <p>@Html.ActionLink("Go back to Flavors List", "Index", "Flavors")</p>
 @if(User.Identity.IsAuthenticated)
 {
-    <button type="click" onclick="DisplayTreats()">Use this flavor on more treats!</button>
-    <div id="treatOptions">
-        <h6>Treat Options</h6>
-        @if(Model.AllTreats.Count == 0)
-        {
-            <p>There are no treats to use this with at this time</p>
-            @Html.ActionLink("Add one here!", "Create", "Treats")
-        }
-        else
-        {
-            @using(Html.BeginForm())
+     <div class="Admin">
+        <h4>Administrative Tools</h4>
+        <p><button type="click" class="btn btn-primary" onclick="DisplayTreats()">Update the treats this flavor is used on!</button></p>
+        <p>@Html.ActionLink("Edit", "Edit", new { id = @Model.Flavor.FlavorId }, new {@class = "btn btn-primary"})
+        @await Html.PartialAsync("_AreYouSurePartial", new ModalViewModel(){ Name = "Remove", LinkAction="Delete", LinkController = "Flavors", Id = @Model.Flavor.FlavorId })</p>
+        <div id="treatOptions">
+            <h6>Treat Options</h6>
+            @if(Model.AllTreats.Count == 0)
             {
-                @Html.Hidden("FlavorId", Model.Flavor.FlavorId)
-                @foreach(Treat treat in Model.AllTreats)
-                {
-                    <div class="form-group">
-                        @Html.Label(@treat.Name)
-                        @if(Model.Flavor.Treats.FirstOrDefault(f => f.Treat.TreatId == treat.TreatId) != null)
-                        {
-                            <input type="checkbox" name="Treats" value="@treat.TreatId" checked>
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="Treats" value="@treat.TreatId">
-                        }
-                    </div>
-                }
-                <input type="submit" value="Update Treats">
+                <p>There are no treats to use this with at this time</p>
+                @Html.ActionLink("Add one here!", "Create", "Treats")
             }
-        }
+            else
+            {
+                @using(Html.BeginForm())
+                {
+                    @Html.Hidden("FlavorId", Model.Flavor.FlavorId)
+                    @foreach(Treat treat in Model.AllTreats)
+                    {
+                        <div class="form-group">
+                            @Html.Label(@treat.Name)
+                            @if(Model.Flavor.Treats.FirstOrDefault(f => f.Treat.TreatId == treat.TreatId) != null)
+                            {
+                                <input type="checkbox" name="Treats" value="@treat.TreatId" checked>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="Treats" value="@treat.TreatId">
+                            }
+                        </div>
+                    }
+                    <input type="submit" value="Update Treats">
+                }
+            }
+        </div>
     </div>
 }
 
