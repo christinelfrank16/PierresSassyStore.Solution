@@ -21,7 +21,7 @@ namespace PierresSassyStore.Controllers
         public IActionResult Index()
         {
             List<string> img_src = _db.Treats.Select(t => t.Image_url).ToList();
-            img_src.Concat(_db.Flavors.Select(f => f.Image_url).ToList());
+            img_src = img_src.Concat(_db.Flavors.Select(f => f.Image_url).ToList()).ToList();
             return View(img_src);
         }
 
