@@ -3,7 +3,8 @@
     ViewData["AvailableSeason"] =  new SelectList(
         new List<SelectListItem>
         {
-            new SelectListItem { Selected = true, Text = "Winter", Value = "Winter"},
+            new SelectListItem { Selected = true, Text = "All", Value = "All"},
+            new SelectListItem { Selected = false, Text = "Winter", Value = "Winter"},
             new SelectListItem { Selected = false, Text = "Spring", Value = "Spring"},
             new SelectListItem { Selected = false, Text = "Fall", Value = "Fall"},
             new SelectListItem { Selected = false, Text = "Summer", Value = "Summer"},
@@ -22,7 +23,7 @@
 
 @using (Html.BeginForm())
 {
-    <input type="hidden" value="@Model.FlavorId">
+    @Html.HiddenFor(m => m.FlavorId)
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name)
