@@ -1,0 +1,84 @@
+@model PierresSassyStore.ViewModels.InventoryIndexViewModel
+@{
+    ViewData["Title"] = "Inventory";
+    IEnumerable<IGrouping<Treat, Flavor>> TreatFlavors =
+        Model.AllCombinations.GroupBy(comb => comb.Treat, comb => comb.Flavor);
+    IEnumerable<IGrouping<Flavor, Treat>> FlavorTreats =
+        Model.AllCombinations.GroupBy(comb => comb.Flavor, comb => comb.Treat);
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        function SwitchQuery(){
+            $("#group-treat-key").toggle();
+            $("#group-flavor-key").toggle();
+            if($("#switchBtn").text() === "Group By Flavor"){
+                $("#switchBtn").text("Group By Treat");
+            } else {
+                $("#switchBtn").text("Group By Flavor");
+            }
+        }
+        $(document).ready(function(){
+            $("#group-flavor-key").hide();
+            $("#group-treat-key").show();
+            $("#switchBtn").text("Group By Flavor");
+        });
+    </script>
+}
+<div class="text-center">
+    <h1 class="display-4">Inventory</h1>
+    <p class="lead">Check out what Pierre's Sassy Store has to offer!</p>
+</div>
+<div id="inventory">
+    <div class="row">
+        <div class="col-auto">
+            <h5>@Html.ActionLink("Treats", "Index", "Treats")</h5>
+            <ul id="treats">
+                @foreach(Treat treat in Model.AllTreats)
+                {
+                    <li>@Html.ActionLink(@treat.Name, "Details", "Treat", new {id = @treat.TreatId})</li>
+                }
+            </ul>
+            <h5>@Html.ActionLink("Flavors", "Index", "Flavors")</h5>
+            <ul id="flavors">
+                @foreach(Flavor flavor in Model.AllFlavors)
+                {
+                    <li>@Html.ActionLink(@flavor.Name, "Details", "Flavor", new {id = @flavor.FlavorId})</li>
+                }
+            </ul>
+        </div>
+        <div class="col">
+            <div id="groups">
+                <p><button id="switchBtn" type=button class="btn btn-primary" onclick="SwitchQuery()"></button></p>
+                <div id="group-treat-key">
+                    @foreach(IGrouping<Treat, Flavor> treatflav in TreatFlavors)
+                    {
+                        <ul class=treat-flavors>
+                            <h6>@Html.ActionLink(treatflav.Key.Name,"Details", "Treats", new {id = treatflav.Key.TreatId})</h6>
+                            <ul>
+                                @foreach (Flavor flav in treatflav)
+                                {
+                                    <li>@flav.Name</li>
+                                }
+                            </ul>
+                        </ul>
+                    }
+                </div>
+                <div id="group-flavor-key">
+                    @foreach(IGrouping<Flavor, Treat> flavorTreat in FlavorTreats)
+                    {
+                        <ul class=treat-flavors>
+                            <h6>@Html.ActionLink(flavorTreat.Key.Name,"Details", "Flavors", new {id = flavorTreat.Key.FlavorId})</h6>
+                            <ul>
+                                @foreach (Treat treat in flavorTreat)
+                                {
+                                    <li>@treat.Name</li>
+                                }
+                            </ul>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
