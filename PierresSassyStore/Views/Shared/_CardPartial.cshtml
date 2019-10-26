@@ -3,14 +3,29 @@
 @{
     string modelType = Model.GetType().ToString();
     int id;
-    List<ModalViewModel> modalObjectList = new List<ModalViewModel>();
+    string genericImg;
+    if(modelType == "PierresSassyStore.Models.Treat")
+    {
+        id = Model.TreatId;
+        genericImg = "/img/genericTreats.jpg";
+    }
+    else if (modelType == "PierresSassyStore.Models.Flavor")
+    {
+        id = Model.FlavorId;
+        genericImg = "/img/genericFlavors.jpg";
+    }
+    else
+    {
+        id = 0;
+        genericImg = "/img/unknownGeneric.jpg";
+    }
 }
 <div class="card">
       <div class="row no-gutter">
             <div class="col-auto">
                 @if(string.IsNullOrEmpty(Model.Image_url))
                 {
-                    <img src="~/img/genericTreats.jpg" class="card-img" alt="Display of Generic Treats">
+                    <img src="@genericImg" class="card-img" alt="Display Generic Food Type">
                 }
                 else
                 {
@@ -21,24 +36,11 @@
             <div class="card-body">
                 <h5 class="card-title">@Model.Name</h5>
                 <p class="card-text">@Model.Description</p>
-                @if(modelType == "PierresSassyStore.Models.Treat")
-                {
-                    id = @Model.TreatId;
-                }
-                else if (modelType == "PierresSassyStore.Models.Flavor")
-                {
-                    id = @Model.FlavorId;
-                }
-                else
-                {
-                    id = 0;
-                }
                 <p>@Html.ActionLink("Link to Details", "Details", new { id = id })</p>
                 @if(User.Identity.IsAuthenticated)
                 {
                     <p>@Html.ActionLink("Edit", "Edit", new { id = id }, new {@class = "btn btn-primary"})
-                    @{modalObjectList.Add(new ModalViewModel(){ Name = "Remove", LinkAction="Delete", LinkController = "Treats", Id = id });}     
-                    @await Html.PartialAsync("_AreYouSurePartial", modalObjectList.FirstOrDefault(o => o.Id == id))</p>
+                    @await Html.PartialAsync("_AreYouSurePartial", new ModalViewModel(){ Name = "Remove", LinkAction="Delete", LinkController = "Treats", Id = id })</p>
                 }
             </div>
         </div>

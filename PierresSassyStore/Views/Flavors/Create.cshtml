@@ -3,7 +3,8 @@
     ViewData["AvailableSeason"] =  new SelectList(
         new List<SelectListItem>
         {
-            new SelectListItem { Selected = true, Text = "Winter", Value = "Winter"},
+            new SelectListItem { Selected = true, Text = "All", Value = "All"},
+            new SelectListItem { Selected = false, Text = "Winter", Value = "Winter"},
             new SelectListItem { Selected = false, Text = "Spring", Value = "Spring"},
             new SelectListItem { Selected = false, Text = "Fall", Value = "Fall"},
             new SelectListItem { Selected = false, Text = "Summer", Value = "Summer"},
@@ -16,6 +17,7 @@
             new SelectListItem { Selected = false, Text = "Thanksgiving", Value = "Thanksgiving"},
             new SelectListItem { Selected = false, Text = "Christmas", Value = "Christmas"},
         }, "Value" , "Text", 1);
+}
 
 <h2>Add a flavor to the library!</h2>
 
