@@ -32,6 +32,7 @@
 <div id="inventory">
     <div class="row">
         <div class="col-auto">
+            <h3 id="combo-header">Options</h3>
             <h5>@Html.ActionLink("Treats", "Index", "Treats")</h5>
             <ul id="treats">
                 @foreach(Treat treat in Model.AllTreats)
@@ -48,6 +49,7 @@
             </ul>
         </div>
         <div class="col">
+            <h3 id="combo-header">Combinations</h3>
             <div id="groups">
                 <p><button id="switchBtn" type=button class="btn btn-primary" onclick="SwitchQuery()"></button></p>
                 <div id="group-treat-key">
