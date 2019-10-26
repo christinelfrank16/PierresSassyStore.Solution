@@ -11,9 +11,18 @@ namespace PierresSassyStore.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly PierresSassyStoreContext _db;
+
+        public HomeController(PierresSassyStoreContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<string> img_src = _db.Treats.Select(t => t.Image_url).ToList();
+            img_src.Concat(_db.Flavors.Select(f => f.Image_url).ToList());
+            return View(img_src);
         }
 
         public IActionResult Privacy()

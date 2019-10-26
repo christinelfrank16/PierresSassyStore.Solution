@@ -45,3 +45,18 @@
     width: 50px;
     margin-right: 10px;
 }
+
+.carousel-item img {
+    height: 400px ;
+    width: auto;
+    object-fit: contain;
+}
+
+.carousel-caption span{
+    color: tan;
+    background-color: linen;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    opacity: 0.85;
+}

@@ -1,10 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<string>
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Pierre's Sassy Store!</h1>
     <h3>Specializing in Sweet and Savory treats</h3>
+    <div id="examples">
+        @await Html.PartialAsync("_CarouselPartial", Model)
+    </div>
     <!-- TODO: Add image rotator of different treats -->
 
     <h4>Check out all we have to offer @Html.ActionLink("here", "Index", "Inventory")! Or, take a look at our @Html.ActionLink("Treats", "Index", "Treats") or @Html.ActionLink("Flavors", "Index", "Flavors").</h4>
