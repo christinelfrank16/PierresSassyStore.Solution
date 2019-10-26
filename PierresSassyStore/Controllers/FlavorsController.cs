@@ -76,6 +76,33 @@ namespace PierresSassyStore.Controllers
         }
 
         [Authorize]
+        [HttpPost, ActionName("Details")]
+        public ActionResult UpdateFlavors(List<int> Treats, int FlavorId)
+        {
+            List<FlavorTreat> thisTreatFlavors = _db.FlavorTreats.Where(ft => ft.FlavorId == FlavorId).ToList();
+            List<int> treatIds = thisTreatFlavors.Select(ft => ft.TreatId).ToList();
+            foreach (int treatId in treatIds)
+            {
+                if (!Treats.Contains(treatId))
+                {
+                    var join = thisTreatFlavors.FirstOrDefault(tf => tf.TreatId == treatId);
+                    _db.FlavorTreats.Remove(join);
+                }
+            }
+            foreach (int newTreatId in Treats)
+            {
+                if (!treatIds.Contains(newTreatId))
+                {
+                    var join = new FlavorTreat() { TreatId = newTreatId, FlavorId = FlavorId };
+                    _db.FlavorTreats.Add(join);
+                }
+            }
+            _db.SaveChanges();
+
+            return RedirectToAction("Details");
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(int id)
         {

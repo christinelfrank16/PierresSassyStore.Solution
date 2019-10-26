@@ -51,16 +51,20 @@ else
         {
             @using(Html.BeginForm())
             {
+                @Html.Hidden("TreatId", Model.Treat.TreatId)
                 @foreach(Flavor flavor in Model.AllFlavors)
                 {
-                    @if(Model.Treat.Flavors.FirstOrDefault(f => f.Flavor.FlavorId == flavor.FlavorId) != null)
-                    {
-                        <input type="checkbox" name="Flavors" value="@flavor.FlavorId" checked>
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="Flavors" value="@flavor.FlavorId">
-                    }
+                    <div class="form-group">
+                        @Html.Label(@flavor.Name)
+                        @if(Model.Treat.Flavors.FirstOrDefault(f => f.Flavor.FlavorId == flavor.FlavorId) != null)
+                        {
+                            <input type="checkbox" name="Flavors" value="@flavor.FlavorId" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="Flavors" value="@flavor.FlavorId">
+                        }
+                    </div>
                 }
                 <input type="submit" value="Update Flavors">
             }
