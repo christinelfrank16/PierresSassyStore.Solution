@@ -1,0 +1,67 @@
+@model PierresSassyStore.ViewModels.FlavorsDetailsViewModel
+@section Scripts
+{
+    <script type="text/javascript">
+        function DisplayTreats(){
+            $("#treatOptions").toggle();
+        }
+    </script>
+}
+
+<h1>@Model.Flavor.Name</h1>
+@if(string.IsNullOrEmpty(Model.Flavor.Image_url))
+{
+    <img src="~/img/genericFlavors.jpg" class="detail-img" alt="Display of Generic Flavors">
+}
+else
+{
+    <img src="@Model.Flavor.Image_url" class="detail-img" alt="Display Image, @Model.Flavor.Name">
+}
+
+@if(Model.Flavor.Treats.Count == 0)
+{
+    <h4>This flavor isn't used on any treats!</h4>
+}
+else
+{
+    <h4>Treats this Flavor is used on</h4>
+    
+    <ul>
+    @foreach(FlavorTreat ft in Model.Flavor.Treats)
+    {
+        <li>@ft.Treat.Name | @ft.Treat.Description | @Html.ActionLink("Learn More", "Details", "Treats", new { id = @ft.Treat.TreatId})</li>
+    }
+    </ul>
+}
+<p>@Html.ActionLink("Go back to Flavors List", "Index", "Flavors")</p>
+@if(User.Identity.IsAuthenticated)
+{
+    <button type="click" onclick="DisplayTreats()">Use this flavor on more treats!</button>
+    <div id="treatOptions">
+        <h6>Treat Options</h6>
+        @if(Model.AllTreats.Count == 0)
+        {
+            <p>There are no treats to use this with at this time</p>
+            @Html.ActionLink("Add one here!", "Create", "Treats")
+        }
+        else
+        {
+            @using(Html.BeginForm())
+            {
+                @foreach(Treat treat in Model.AllTreats)
+                {
+                    @if(Model.Flavor.Treats.FirstOrDefault(f => f.Treat.TreatId == treat.TreatId) != null)
+                    {
+                        <input type="checkbox" name="Treats" value="@treat.TreatId" checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Treats" value="@treat.TreatId">
+                    }
+                }
+                <input type="submit" value="Update Treats">
+            }
+        }
+    </div>
+}
+

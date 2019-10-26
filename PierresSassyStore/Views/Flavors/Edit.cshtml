@@ -1,0 +1,55 @@
+@model PierresSassyStore.Models.Flavor
+@{
+    ViewData["AvailableSeason"] =  new SelectList(
+        new List<SelectListItem>
+        {
+            new SelectListItem { Selected = true, Text = "Winter", Value = "Winter"},
+            new SelectListItem { Selected = false, Text = "Spring", Value = "Spring"},
+            new SelectListItem { Selected = false, Text = "Fall", Value = "Fall"},
+            new SelectListItem { Selected = false, Text = "Summer", Value = "Summer"},
+            new SelectListItem { Selected = false, Text = "New Year", Value = "New Year"},
+            new SelectListItem { Selected = false, Text = "Valentine's Day", Value = "Valentine's Day"},
+            new SelectListItem { Selected = false, Text = "St. Patrick's Day", Value = "St. Patrick's Day"},
+            new SelectListItem { Selected = false, Text = "Easter", Value = "Easter"},
+            new SelectListItem { Selected = false, Text = "4th of July", Value = "4th of July"},
+            new SelectListItem { Selected = false, Text = "Halloween", Value = "Halloween"},
+            new SelectListItem { Selected = false, Text = "Thanksgiving", Value = "Thanksgiving"},
+            new SelectListItem { Selected = false, Text = "Christmas", Value = "Christmas"},
+        }, "Value" , "Text", 1);
+
+<h2>Update @Model.Name!</h2>
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" value="@Model.FlavorId">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.IsSeasonal)
+        @Html.CheckBoxFor(m => m.IsSeasonal)
+    </div>
+    <div class="form-group">
+        @Html.Label("Select Most Applicable Season / Holiday")
+        @Html.DropDownList("AvailableSeason")
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.IsAvailable)
+        @Html.CheckBoxFor(m => m.IsAvailable)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Image_url)
+        @Html.TextBoxFor(m => m.Image_url)
+    </div>
+    <div class="form-group">
+        @Html.Label("Select A Treat to use this Flavor")
+        @Html.DropDownList("TreatIds")
+    </div>
+
+    <input type="submit" value="Update Flavor">
+}
