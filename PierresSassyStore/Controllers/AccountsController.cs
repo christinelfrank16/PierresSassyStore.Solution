@@ -31,7 +31,7 @@ namespace PierresSassyStore.Controllers
                 var currentUser = await _userManager.FindByIdAsync(userId);
                 return View(currentUser);
             }
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Register()
